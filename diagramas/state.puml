@@ -1,0 +1,89 @@
+@startuml
+package state {
+interface EstadoPedido {
+  +pagar(pedido : Pedido) : void
+  +enviar(pedido : Pedido) : void
+  +entregar(pedido : Pedido) : void
+  +cancelar(pedido : Pedido) : void
+  +solicitarDevolucao(pedido : Pedido) : void
+}
+class Pedido {
+  -estadoAtual : EstadoPedido
+  +alterarEstado(novoEstado : EstadoPedido) : void
+  +getEstadoAtual() : EstadoPedido
+  +pagar() : void
+  +enviar() : void
+  +entregar() : void
+  +cancelar() : void
+  +solicitarDevolucao() : void
+}
+class NovoEstado {
+  +pagar(pedido : Pedido) : void
+  +enviar(pedido : Pedido) : void
+  +entregar(pedido : Pedido) : void
+  +cancelar(pedido : Pedido) : void
+  +solicitarDevolucao(pedido : Pedido) : void
+}
+class PagoEstado {
+  +pagar(pedido : Pedido) : void
+  +enviar(pedido : Pedido) : void
+  +entregar(pedido : Pedido) : void
+  +cancelar(pedido : Pedido) : void
+  +solicitarDevolucao(pedido : Pedido) : void
+}
+class EnviadoEstado {
+  +pagar(pedido : Pedido) : void
+  +enviar(pedido : Pedido) : void
+  +entregar(pedido : Pedido) : void
+  +cancelar(pedido : Pedido) : void
+  +solicitarDevolucao(pedido : Pedido) : void
+}
+class EntregueEstado {
+  +pagar(pedido : Pedido) : void
+  +enviar(pedido : Pedido) : void
+  +entregar(pedido : Pedido) : void
+  +cancelar(pedido : Pedido) : void
+  +solicitarDevolucao(pedido : Pedido) : void
+}
+class CanceladoEstado {
+  +pagar(pedido : Pedido) : void
+  +enviar(pedido : Pedido) : void
+  +entregar(pedido : Pedido) : void
+  +cancelar(pedido : Pedido) : void
+  +solicitarDevolucao(pedido : Pedido) : void
+}
+class DevolvidoEstado {
+  +pagar(pedido : Pedido) : void
+  +enviar(pedido : Pedido) : void
+  +entregar(pedido : Pedido) : void
+  +cancelar(pedido : Pedido) : void
+  +solicitarDevolucao(pedido : Pedido) : void
+}
+class Main {
+  +{static} main(args : String[]) : void
+}
+Pedido --> "1" EstadoPedido : estadoAtual
+Pedido ..> NovoEstado : inicializa
+EstadoPedido ..> Pedido
+NovoEstado ..|> EstadoPedido
+NovoEstado ..> Pedido
+PagoEstado ..|> EstadoPedido
+PagoEstado ..> Pedido
+EnviadoEstado ..|> EstadoPedido
+EnviadoEstado ..> Pedido
+EntregueEstado ..|> EstadoPedido
+EntregueEstado ..> Pedido
+CanceladoEstado ..|> EstadoPedido
+CanceladoEstado ..> Pedido
+DevolvidoEstado ..|> EstadoPedido
+DevolvidoEstado ..> Pedido
+NovoEstado ..> PagoEstado
+NovoEstado ..> CanceladoEstado
+PagoEstado ..> EnviadoEstado
+PagoEstado ..> CanceladoEstado
+EnviadoEstado ..> EntregueEstado
+EntregueEstado ..> DevolvidoEstado
+Main ..> Pedido
+Main ..> EstadoPedido
+}
+@enduml
