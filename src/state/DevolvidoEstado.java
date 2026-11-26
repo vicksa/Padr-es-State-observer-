@@ -1,0 +1,28 @@
+package state;
+
+public class DevolvidoEstado implements EstadoPedido {
+    @Override
+    public void pagar(Pedido pedido) {
+        System.out.println("Operacao pagar bloqueada: pedido ja devolvido.");
+    }
+
+    @Override
+    public void enviar(Pedido pedido) {
+        System.out.println("Operacao enviar bloqueada: pedido ja devolvido.");
+    }
+
+    @Override
+    public void entregar(Pedido pedido) {
+        System.out.println("Operacao entregar bloqueada: pedido ja devolvido.");
+    }
+
+    @Override
+    public void cancelar(Pedido pedido) {
+        System.out.println("Operacao cancelar bloqueada: pedido ja devolvido.");
+    }
+
+    @Override
+    public void solicitarDevolucao(Pedido pedido) {
+        System.out.println("Operacao solicitarDevolucao bloqueada: pedido ja devolvido.");
+    }
+}
