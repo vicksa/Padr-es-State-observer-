@@ -1,0 +1,46 @@
+@startuml
+package observer {
+interface ObservadorAcao {
+  +atualizar(codigoAcao : String, novoPreco : double) : void
+}
+class Acao {
+  -codigo : String
+  -precoAtual : double
+  -observadores : List<ObservadorAcao>
+  +Acao(codigo : String, precoAtual : double)
+  +getPrecoAtual() : double
+  +adicionarObservador(obs : ObservadorAcao) : void
+  +removerObservador(obs : ObservadorAcao) : void
+  +setPreco(novoPreco : double) : void
+  -notificarObservadores() : void
+}
+class PainelBolsa {
+  +atualizar(codigoAcao : String, novoPreco : double) : void
+}
+class RoboInvestidor {
+  -acao : Acao
+  -alvoCompra : double
+  -tetoVenda : double
+  +RoboInvestidor(acao : Acao, alvoCompra : double, tetoVenda : double)
+  +atualizar(codigoAcao : String, novoPreco : double) : void
+}
+class AlertaSMS {
+  -precoAnterior : double
+  -limitePercentual : double
+  +AlertaSMS(precoInicial : double, limitePercentual : double)
+  +atualizar(codigoAcao : String, novoPreco : double) : void
+}
+class Main {
+  +{static} main(args : String[]) : void
+}
+Acao --> "0..*" ObservadorAcao : observadores
+PainelBolsa ..|> ObservadorAcao
+RoboInvestidor ..|> ObservadorAcao
+AlertaSMS ..|> ObservadorAcao
+RoboInvestidor --> "1" Acao : desinscreve-se
+Main ..> Acao
+Main ..> PainelBolsa
+Main ..> RoboInvestidor
+Main ..> AlertaSMS
+}
+@enduml
